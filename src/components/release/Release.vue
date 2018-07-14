@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="releaseBody">
         <div class="itemSale">
             <span class="text" @click="handleclick" >发布二手</span>
         </div>
@@ -16,7 +16,6 @@
                 this.$router.push('release/waiting')
             }
         }
-       
     }
 </script>
 
@@ -24,7 +23,7 @@
 @import '../../style/usage/core/reset';
     .itemSale{
         width: 100%;
-        height: 2.9rem;
+        height: 50%;
         background-color: rgb(220,220,220);
         @include border(0 0 1px 0 ,#fff,solid );
         @include flexbox();
@@ -37,7 +36,7 @@
     }
     .itemBuy{
         width: 100%;
-        height: 2.89rem;
+        height: 50%;
         background-color: rgb(220,220,220);  
         @include flexbox(); 
         @include justify-content();
@@ -46,5 +45,11 @@
             font-size: .5rem;
             color: #fff;
         }     
+    }
+    .releaseBody{
+        position: absolute;
+        top: .45rem;
+        bottom: .54rem;
+        width: 100%;
     }
 </style>

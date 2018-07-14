@@ -44,7 +44,8 @@ export default new Vuex.Store({
         }
       }
     ],
-    isLogin: ''
+    isLogin: '',
+    isRegister: false
   },
   mutations: {
     register(state, payload){
@@ -66,6 +67,7 @@ export default new Vuex.Store({
     },
     isRegister(state, payload){
       let num = 0
+      state.isRegister = false
       state.user.forEach(function (item) {
         if( item.userName == payload.userName ) num++
       })
@@ -75,15 +77,16 @@ export default new Vuex.Store({
           passWord: payload.passWord,
           msg: {
             name: payload.userName,
-            Authentication: false,
+            Authentication: '未认证',
             autograph: '',
             email: payload.email,
             school: payload.school
           }
         }
         this.commit('register',modPayload)
-        console.log(state.user)
-        alert('注册成功')
+        // console.log(state.user)
+        state.isRegister = true
+        // alert('注册成功')
       }
       else alert('该用户已存在')
     },
@@ -94,6 +97,7 @@ export default new Vuex.Store({
   actions: {
     register({commit}, payload){
       commit('isRegister', payload)
+      return this.state.isRegister
     },
     login({commit}, payload){
       commit('login', payload)

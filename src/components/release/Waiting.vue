@@ -4,12 +4,13 @@
             <div><span>Tips - 柚子校园</span></div>
             <div>
                 <span>请您先登录，正在跳转登录页</span>
-                <i>页面自动 &nbsp;<b>跳转</b>&nbsp; 中等待时间：<a>{{time}}</a></i>
+                <i>页面自动 &nbsp;<b @click="handelSkip">跳转</b>&nbsp; 中等待时间：<a>{{time}}</a></i>
             </div>
         </div>
 
-        <div v-else>
-            即将跳转到发布商品页
+        <div v-else class="publish">
+            <!-- 即将跳转到发布商品页 -->
+            <publish></publish>
         </div>
     </div>
        
@@ -18,6 +19,7 @@
 <script>
     import Bus from '../../bus'
     import { mapState } from 'vuex'
+    import publish from './publish.vue'
     export default {
         name:"waiting",
         data(){
@@ -29,6 +31,10 @@
         methods:{
             countDown(){
                 this.time--;
+            },
+            handelSkip(){
+                clearInterval(this.timer)
+                this.$router.push("/user/login")
             }
         },
         mounted () {
@@ -57,6 +63,9 @@
         },
         computed: {
             ...mapState(['isLogin'])
+        },
+        components: {
+            publish
         }
     }
 </script>
@@ -126,6 +135,9 @@
                     }
                 }
             }
+        }
+        .publish{
+            height: 100%;
         }
     }
  

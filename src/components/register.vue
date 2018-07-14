@@ -92,7 +92,14 @@ import Bus from "../bus.js"
                     email: val[2],
                     school: val[3]
                 }
-                this.register(userObj)
+                let result = this.register(userObj)
+                result.then(res =>{
+                    if(res){
+                        alert('注册成功，点击跳往登录页')
+                        this.$router.push('/user/login')
+                    }
+                })
+                
             }
         }
     }
