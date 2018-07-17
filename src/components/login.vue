@@ -23,6 +23,11 @@
                 </div>
             </div>
         </div>
+
+         <mt-popup
+            v-model="popupVisible"
+            position="top">{{Prompt}}
+        </mt-popup>
     </div>
 </template>
 
@@ -50,7 +55,9 @@ import Bus from "../bus.js"
                         placeholder:"请输入密码",
                         context: ''
                     }
-                ]
+                ],
+                popupVisible: false,
+                Prompt: '用户名有误！'
             }
         },
         methods: {
@@ -70,10 +77,14 @@ import Bus from "../bus.js"
                 let res = this.login(userData)
                 res.then(res =>{
                     if(!res.userName && !res.name){
-                        alert('用户名有误！')
+                        // alert('用户名有误！')
+                        this.Prompt = '用户名有误！'
+                        this.popupVisible = true
                     }
                     else if(!res.passWord && !res.name){
-                        alert('密码不正确')
+                        // alert('密码不正确')
+                        this.Prompt = '密码不正确'
+                        this.popupVisible = true
                     }
                     else{
                         this.$router.replace('/user')
@@ -97,6 +108,14 @@ import Bus from "../bus.js"
 @import "../../src/style/usage/core/reset";
     .loginBody{
         height: 100%;
+        .mint-popup{
+            width: 100%;
+            height: .6rem;
+            font-size: 14px;
+            text-align: center;
+            color: skyblue;
+            line-height: .6rem;
+        }
     }
     .login{
         background: #f0f0ff;

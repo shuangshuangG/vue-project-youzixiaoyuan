@@ -88,7 +88,7 @@ export default new Vuex.Store({
         state.isRegister = true
         // alert('注册成功')
       }
-      else alert('该用户已存在')
+      else state.isRegister = false
     },
     clearLogin(state){
       state.isLogin = ''

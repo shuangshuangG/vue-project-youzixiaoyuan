@@ -4,8 +4,8 @@
         <p class="title"><i class="fa fa-angle-left" @click="handelBack"></i> 发布商品</p>
         <div v-if="next" class="box-body">
             <div class="form-group">
-                <div v-if="goodsMsg.pic.length" class="picGroup">
-                    <a v-for="(item, index) of goodsMsg.pic" :key="index">
+                <div v-if="goodsMsg.thumb.length" class="picGroup">
+                    <a v-for="(item, index) of goodsMsg.thumb" :key="index">
                         <img :src="item" alt="" class="img" >
                         <span @click="handelDelPic(index)">删除</span>
                     </a>
@@ -90,18 +90,24 @@
                 <button type="button" @click="handelPub">确认发布</button>
             </div>
         </div>
+
+        <mt-popup
+            v-model="popupVisible"
+            popup-transition="popup-fade">{{Prompt}}
+        </mt-popup>
     </form>
 
 </template>
 
 <script>
+    import Bus from '../../bus.js'
     export default {
         name: 'publish',
         data: () =>{
             return {
                 next: true,
                 goodsMsg: {
-                        pic: [],
+                        thumb: [],
                         title: '',
                         price: '',
                         msg: '',
@@ -111,7 +117,9 @@
                         phone: '',
                         QQ: '',
                         wechat: ''
-                    }
+                    },
+                popupVisible: false,
+                Prompt: '商品发布成功，即将跳转到详情页。。。'
             }
         },
         methods: {
@@ -123,21 +131,25 @@
                         reader.readAsDataURL(item);    
                         //监听文件读取结束后事件    
                         reader.onloadend = function (e) {
-                            this.goodsMsg.pic.push(e.target.result)   //e.target.result就是最后的路径地址
+                            this.goodsMsg.thumb.push(e.target.result)   //e.target.result就是最后的路径地址
                         }.bind(this)
                     } 
                 }
 
             },
             handelDelPic(index){
-                this.goodsMsg.pic.splice(index, 1)
+                this.goodsMsg.thumb.splice(index, 1)
             },
             handelNext(){
-                if(!this.goodsMsg.pic.length){
-                    alert('至少选择一张图片！')
+                if(!this.goodsMsg.thumb.length){
+                    // alert('至少选择一张图片！')
+                    this.Prompt = '至少选择一张图片！'
+                    this.popupVisible = true
                     return
                 }else if( !this.goodsMsg.title || !this.goodsMsg.price || !this.goodsMsg.msg ){
-                    alert('请填完整信息再走！')
+                    // alert('请填完整信息再走！')
+                    this.Prompt = '请填完整信息再走！'
+                    this.popupVisible = true
                     return
                 }
                 else this.next = false
@@ -150,9 +162,28 @@
                     !this.goodsMsg.phone || 
                     !this.goodsMsg.QQ || 
                     !this.goodsMsg.wechat ){
-                        alert('请填完整信息再走！')
+                        // alert('请填完整信息再走！')
+                        this.Prompt = '请填完整信息再走！'
+                        this.popupVisible = true
                         return
-                    }else alert('商品发布成功，即将跳转到详情页')
+                    }else{
+                        // alert('商品发布成功，即将跳转到详情页')
+                        this.Prompt = '商品发布成功，即将跳转到首页'
+                        this.popupVisible = true
+                        console.log(this.goodsMsg)
+                        let newGoods = {
+                            certtype: '未认证',
+                            click: 0,
+                            price: this.goodsMsg.price,
+                            schoolname: this.goodsMsg.school,
+                            thumb: this.goodsMsg.thumb[0],
+                            title: this.goodsMsg.title,
+                        }
+                        Bus.$emit('goodsData',newGoods)
+                        setTimeout(() =>{
+                            this.$router.push('/sale')
+                        },1000)
+                    }
             },
             handelBack(){
                 history.back()
@@ -229,7 +260,7 @@
                 height: .8rem;
                 background: #ddd;
                 position: relative;
-                top: -.3rem;
+                top: -.25rem;
                 left: 0;
                 line-height: 1.4rem;
                 text-align: center;
@@ -261,6 +292,15 @@
             margin-left: 50%;
             transform: translate(-50%);
             margin-top: .2rem;
+        }
+        .mint-popup{
+            height: 1rem;
+            width: 50%;
+            padding: .2rem .2rem;
+            border-radius: .04rem;
+            text-align: center;
+            font-size: 14px;
+            color: skyblue;
         }
     }
     .title{

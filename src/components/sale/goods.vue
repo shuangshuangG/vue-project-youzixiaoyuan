@@ -3,7 +3,8 @@
         <img v-if="!list" src="../../../public/timgs.gif" alt="" class="loading">
         <!-- <mt-spinner v-if="!list" type="fading-circle" class="loading"></mt-spinner> -->
         <li v-for="(item,index) of list" :key="index" :saleid="item.saleid">
-            <img alt="" v-lazy="'http://www.youzixy.com/Uploads/'+item.thumb">
+            <img alt="" v-if="!item.click" :src="item.thumb">
+            <img alt="" v-else v-lazy="'http://www.youzixy.com/Uploads/'+item.thumb">
             <p class="p1">
                 <span class="price">￥{{item.price}}</span>
                 <span class="clickNum">点击数 {{item.click}}</span>
@@ -19,6 +20,7 @@
 
 <script>
     import $ from 'axios'
+    import Bus from '../../bus.js'
     export default {
         name: 'goods',
         data: () =>{
@@ -30,7 +32,13 @@
             $.post('/sale/mobileajax?page=3&order=10')
             .then((result) => {
                 this.list = result.data.res
+
+                Bus.$on('goodsData',(goodsData) =>{
+                    this.list.unshift(goodsData)
+                    console.log(this.list)
+                })
             })
+
         },
     }
 </script>

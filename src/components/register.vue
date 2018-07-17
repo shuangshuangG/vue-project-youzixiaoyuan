@@ -25,6 +25,11 @@
                 </div>
             </div>
         </div>
+
+        <mt-popup
+            v-model="popupVisible"
+            popup-transition="popup-fade">{{Prompt}}
+        </mt-popup>
     </div>
 </template>
 
@@ -64,7 +69,9 @@ import Bus from "../bus.js"
                         placeholder:"请输入学校",
                         context: ''
                     }
-                ]
+                ],
+                popupVisible: false,
+                Prompt: '用户名有误！'
             }
         },
         beforeRouteEnter (to, from, next) {
@@ -92,11 +99,27 @@ import Bus from "../bus.js"
                     email: val[2],
                     school: val[3]
                 }
+                for(const ele in userObj){
+                    if(!userObj[ele]){
+                        this.Prompt = '请填完信息再走...'
+                        this.popupVisible = true
+                        return
+                    }
+                }
                 let result = this.register(userObj)
                 result.then(res =>{
                     if(res){
-                        alert('注册成功，点击跳往登录页')
-                        this.$router.push('/user/login')
+                        // alert('注册成功，点击跳往登录页')
+                        this.Prompt = '注册成功，即将跳往登录页'
+                        this.popupVisible = true
+                        setTimeout(() =>{
+                            this.popupVisible = false
+                            this.$router.push('/user/login')
+                        },1000)
+                    }
+                    else{
+                        this.Prompt = '该用户已存在！'
+                        this.popupVisible = true
                     }
                 })
                 
@@ -109,6 +132,15 @@ import Bus from "../bus.js"
 @import "../../src/style/usage/core/reset";
     .registerBody{
         height: 100%;
+        .mint-popup{
+            height: 1rem;
+            width: 50%;
+            padding: .2rem .2rem;
+            border-radius: .04rem;
+            text-align: center;
+            font-size: 14px;
+            color: skyblue;
+        }
     }
     .login{
         background: #f0f0ff;
