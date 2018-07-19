@@ -7,7 +7,8 @@
 
                     <div class="item " v-for="item of userMsg" :key="item.id">
                         <label>{{item.name}}&nbsp;&nbsp;|</label>
-                        <input type="text" :placeholder="item.placeholder" v-model="item.context">
+                        <input v-if="item.id == 'U2'" type="password" :placeholder="item.placeholder" v-model="item.context">
+                        <input v-else type="text" :placeholder="item.placeholder" v-model="item.context">
                     </div>
                     
                     <input class="checked" type="checkbox" checked="checked"><a>记住我的登录状态</a>

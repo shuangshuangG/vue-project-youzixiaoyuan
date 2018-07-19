@@ -7,7 +7,8 @@
 
                     <div class="item " v-for="item of userMsg" :key="item.id">
                         <label>{{item.name}}&nbsp;&nbsp;|</label>
-                        <input type="text" :placeholder="item.placeholder" v-model="item.context">
+                        <input v-if="item.id == 'U2'" type="password" :placeholder="item.placeholder" v-model="item.context">
+                        <input v-else type="text" :placeholder="item.placeholder" v-model="item.context">
                     </div>
 
                     <div><input class="checked" type="checkbox" checked="checked"><a>我同意</a>&nbsp;&nbsp;<a id="agree"><i class="fa  fa-angle-left"></i> <i class="fa  fa-angle-left"></i>&nbsp;&nbsp;柚子校园用户协议&nbsp;&nbsp;<i class="fa  fa-angle-right"></i><i class="fa  fa-angle-right"></i> </a></div>
