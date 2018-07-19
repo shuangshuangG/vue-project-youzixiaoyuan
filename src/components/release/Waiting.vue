@@ -10,7 +10,8 @@
 
         <div v-else class="publish">
             <!-- 即将跳转到发布商品页 -->
-            <publish></publish>
+            <publish v-if="type == 'publish'"></publish>
+            <wantBuy v-else :user='isLogin.name'></wantBuy>
         </div>
     </div>
        
@@ -20,12 +21,14 @@
     import Bus from '../../bus'
     import { mapState } from 'vuex'
     import publish from './publish.vue'
+    import wantBuy from './wantBuy.vue'
     export default {
         name:"waiting",
         data(){
             return {
                 time: 0,
-                timer: ''
+                timer: '',
+                type: ''
             }
         },
         methods:{
@@ -42,6 +45,9 @@
                 this.time = 3
                 this.timer = setInterval(this.countDown,1000)
             }
+            this.type = this.route
+            // console.log(this.route)
+            // console.log(this)
         },
         beforeRouteEnter (to, from, next) {
             Bus.$emit('isShow',false)
@@ -62,10 +68,12 @@
             }
         },
         computed: {
-            ...mapState(['isLogin'])
+            ...mapState(['isLogin']),
+            ...mapState(['route'])
         },
         components: {
-            publish
+            publish,
+            wantBuy
         }
     }
 </script>

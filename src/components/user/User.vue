@@ -70,11 +70,12 @@
             }
         },
         methods: {
-            handleListclick(path){
-                alert(1)
-                this.$router.push({
-                    path
-                })
+            handleListclick(){
+                // alert(1)
+                // this.$router.push({
+                //     path
+                // })
+                console.log(1)
             },
             handleloginclick(){
                 this.$router.push("/user/login")

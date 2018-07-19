@@ -55,18 +55,28 @@
 
 <script>
 import $ from "axios"
+import { mapState } from 'vuex'
     export default {
         data(){
             return{
-                List:''
+                List:'',
+                isData: false
             }
         },
-      mounted() {
-          $.get("/buy/mobileajax")
-          .then((result)=>{
-              this.List = result.data.res
-          })
-      },
+        computed: {
+            ...mapState(['buyData']),
+        },
+        mounted() {
+            $.get("/buy/mobileajax")
+            .then((result)=>{
+                this.List = result.data.res
+                this.isData = true
+                this.List.unshift(...this.buyData)
+            })
+        },
+        activated() {
+            if(this.isData) this.List.unshift(...this.buyData)
+        }
     }
 </script>
 

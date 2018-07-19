@@ -1,18 +1,21 @@
 <template>
     <div class="releaseBody">
         <div class="itemSale">
-            <span class="text" @click="handleclick" >发布二手</span>
+            <span class="text" @click="handleclick('publish')" >发布二手</span>
         </div>
         <div class="itemBuy">
-            <span class="text">发布求购</span>
+            <span class="text" @click="handleclick('wantBuy')">发布求购</span>
         </div>
     </div>
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
     export default {
         methods: {
-            handleclick(){
+            ...mapActions(['setRoute']),
+            handleclick(type){
+                this.setRoute(type)
                 this.$router.push('release/waiting')
             }
         }

@@ -44,12 +44,20 @@ export default new Vuex.Store({
         }
       }
     ],
+    buyData: [],
     isLogin: '',
-    isRegister: false
+    isRegister: false,
+    route: ''
   },
   mutations: {
     register(state, payload){
       state.user.push(payload)
+    },
+    setBuyData(state, payload){
+      state.buyData.unshift(payload)
+    },
+    setRoute(state, payload){
+      state.route = payload
     },
     login(state, payload){
       state.isLogin = ''
@@ -95,6 +103,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setBuyData({commit}, payload){
+      commit('setBuyData', payload)
+    },
+    setRoute({commit}, payload){
+      commit('setRoute', payload)
+    },
     register({commit}, payload){
       commit('isRegister', payload)
       return this.state.isRegister
