@@ -14,6 +14,7 @@ import myhead from '../components/release/Header'
 import release from "../components/release/Release"
 import BScroll from 'better-scroll'
 
+
 export default {
     name: 'rhead',
     components: {
@@ -21,9 +22,10 @@ export default {
         release
     },
     mounted() {
-        let scroll = new BScroll('.wrapper')
+        let wrapper = document.querySelector('.wrapper')
+        let scroll = new BScroll(wrapper, {click: true})
         console.log(scroll)
-    },
+    }
 }
 </script>
 

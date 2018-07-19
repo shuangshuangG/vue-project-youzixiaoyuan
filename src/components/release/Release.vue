@@ -10,6 +10,7 @@
 </template>
 
 <script>
+    
     import { mapActions } from 'vuex'
     export default {
         methods: {
@@ -48,6 +49,9 @@
             font-size: .5rem;
             color: #fff;
         }     
+    }
+    .wrapper{
+        height: 84%;
     }
     .releaseBody{
         position: absolute;

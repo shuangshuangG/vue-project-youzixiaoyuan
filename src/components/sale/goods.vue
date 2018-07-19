@@ -1,26 +1,31 @@
 <template>
-    <ul class="goodsList">
-        <img v-if="!list" src="../../../public/timgs.gif" alt="" class="loading">
-        <!-- <mt-spinner v-if="!list" type="fading-circle" class="loading"></mt-spinner> -->
-        <li v-for="(item,index) of list" :key="index" :saleid="item.saleid">
-            <img alt="" v-if="!item.click" :src="item.thumb">
-            <img alt="" v-else v-lazy="'http://www.youzixy.com/Uploads/'+item.thumb">
-            <p class="p1">
-                <span class="price">￥{{item.price}}</span>
-                <span class="clickNum">点击数 {{item.click}}</span>
-            </p>
-            <p class="p2">{{item.title}}</p>
-            <p class="p3">
-                <span class="schoolName">{{item.schoolname}}</span>
-                <span class="certtype">{{item.certtype}}</span>
-            </p>
-        </li>
-    </ul>
+    <div class="wrapper" ref="wrapper">
+        <ul class="goodsList">
+            <img v-if="!list" src="../../../public/timgs.gif" alt="" class="loading">
+            <!-- <mt-spinner v-if="!list" type="fading-circle" class="loading"></mt-spinner> -->
+            <li v-for="(item,index) of list" :key="index" :saleid="item.saleid">
+                <img alt="" v-if="!item.click" :src="item.thumb">
+                <img alt="" v-else v-lazy="'http://www.youzixy.com/Uploads/'+item.thumb">
+                <p class="p1">
+                    <span class="price">￥{{item.price}}</span>
+                    <span class="clickNum">点击数 {{item.click}}</span>
+                </p>
+                <p class="p2">{{item.title}}</p>
+                <p class="p3">
+                    <span class="schoolName">{{item.schoolname}}</span>
+                    <span class="certtype">{{item.certtype}}</span>
+                </p>
+            </li>
+            <li style="background: none;border:none;height:.9rem;"></li>
+            <li style="background: none;border:none;height:.9rem;"></li>
+        </ul>
+    </div>
 </template>
 
 <script>
     import $ from 'axios'
     import Bus from '../../bus.js'
+    import BScroll from 'better-scroll'
     export default {
         name: 'goods',
         data: () =>{
@@ -38,7 +43,9 @@
                     console.log(this.list)
                 })
             })
-
+            this.$nextTick(() => {
+                this.scroll = new BScroll(this.$refs.wrapper, {click: true})
+            })
         },
     }
 </script>
@@ -53,9 +60,9 @@
     }
     .wrapper{
         height: 100%;
+        overflow: hidden;
     }
     .goodsList{
-        width: 100%;
         overflow: hidden;
     }
     .loading{

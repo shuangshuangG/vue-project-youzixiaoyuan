@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div class="wrapper" ref="wrapper">
         <div class="user">
             <router-view></router-view>
             <myhead></myhead>
@@ -21,8 +21,9 @@ export default {
         user
     },
     mounted() {
-        let scroll = new BScroll('.wrapper')
-        console.log(scroll)
+        this.$nextTick(() => {
+            this.scroll = new BScroll(this.$refs.wrapper, {click: true})
+        })
     },
 }
 </script>
