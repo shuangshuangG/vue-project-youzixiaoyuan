@@ -16,8 +16,7 @@
                     <span class="certtype">{{item.certtype}}</span>
                 </p>
             </li>
-            <li style="background: none;border:none;height:.9rem;"></li>
-            <li style="background: none;border:none;height:.9rem;"></li>
+            <li class="li"></li>
         </ul>
     </div>
 </template>
@@ -47,6 +46,9 @@
                 this.scroll = new BScroll(this.$refs.wrapper, {click: true})
             })
         },
+        activated() {
+            this.scroll = new BScroll(this.$refs.wrapper, {click: true})
+        }
     }
 </script>
 
@@ -143,5 +145,17 @@
                 overflow: hidden;
             }
         }
+    }
+    .li{
+        background: none;
+        border:none;
+        height:1.2rem;
+        float: none;
+        clear: both;
+    }
+    .li::after{
+        content: '';
+        border: none;
+        background: none;
     }
 </style>
