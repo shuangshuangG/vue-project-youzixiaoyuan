@@ -20,8 +20,8 @@
                 </a>
             </div>
         </div>
-
     </div>
+
 </template>
 
 <script>

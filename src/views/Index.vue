@@ -1,11 +1,13 @@
 <template>
-    <div class="sale">
-        <router-view></router-view>
-        <myhead></myhead>
-        <div class="goodsBody">
-            <search router="index"></search>
-            <sort></sort>
-            <goods></goods>
+    <div class="wrapper">
+        <div class="sale content">
+            <router-view></router-view>
+            <myhead></myhead>
+            <div class="goodsBody">
+                <search router="index"></search>
+                <sort></sort>
+                <goods></goods>
+            </div>
         </div>
     </div>
 </template>
@@ -16,6 +18,7 @@ import myhead from '../components/Header'
 import search from '../components/search'
 import sort from '../components/sale/sort'
 import goods from '../components/sale/goods'
+import BScroll from 'better-scroll'
 
 export default {
     name: 'index',
@@ -31,13 +34,20 @@ export default {
                 name: 'buyIndex'
             })
         }
-    }
+    },
+    mounted() {
+        let scroll = new BScroll('.wrapper')
+        console.log(scroll)
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-    .sale{
+    .wrapper{
         height: 100%;
+    }
+    .sale{
+        height: 101%;
         width: 100%;
     }
     .goodsBody{

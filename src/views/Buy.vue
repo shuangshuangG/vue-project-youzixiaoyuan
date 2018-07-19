@@ -1,10 +1,12 @@
 <template>
-    <div class="buy">
-        <myhead></myhead>
-        <div class="buyBodyMain">
-            <search></search>
-            <sort></sort>
-            <buyList></buyList>
+    <div class="wrapper">
+        <div class="buy content">
+            <myhead></myhead>
+            <div class="buyBodyMain">
+                <search></search>
+                <sort></sort>
+                <buyList></buyList>
+            </div>
         </div>
     </div>
 </template>
@@ -15,6 +17,7 @@ import myhead from '../components/Header'
 import sort from '../components/sale/sort'
 import search from '../components/search'
 import buyList from '../components/buy/buy'
+import BScroll from 'better-scroll'
 
 export default {
     name: 'buy',
@@ -23,13 +26,20 @@ export default {
         search,
         sort,
         buyList
-    }
+    },
+    mounted() {
+        let scroll = new BScroll('.wrapper')
+        console.log(scroll)
+    },
 }
 </script>
 
 <style lang="scss" scoped>
-    .buy{
+    .wrapper{
         height: 100%;
+    }
+    .buy{
+        height: 101%;
         width: 100%;
     }
     .buyBodyMain{
