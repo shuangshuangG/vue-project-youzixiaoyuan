@@ -31,6 +31,7 @@ export default {
 <style lang="scss" scoped>
     .wrapper{
         height: 100%;
+        background: #fff;
     }
     .user{
         height: 101%;
