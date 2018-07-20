@@ -28,11 +28,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .wrapper{
-        height: 100%;
-    }
     .buy{
-        height: 101%;
+        height: 100%;
         width: 100%;
     }
     .buyBodyMain{
@@ -40,6 +37,5 @@ export default {
         top: .45rem;
         bottom: .62rem;
         width: 100%;
-        overflow-y: scroll;
     }
 </style>
