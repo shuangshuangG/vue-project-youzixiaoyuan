@@ -9,6 +9,7 @@ import waiting from "./components/release/Waiting"
 import login from "./components/login"
 import register from "./components/register"
 import school from "./components/school"
+import detail from "./components/Detail"
 
 Vue.use(Router)
 
@@ -70,6 +71,11 @@ export default new Router({
       path:"/school",
       name:"school",
       component:school
+    },
+    {
+      path:"/detail",
+      name:"detail",
+      component:detail
     }
   ]
 })

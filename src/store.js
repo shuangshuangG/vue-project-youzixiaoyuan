@@ -47,9 +47,18 @@ export default new Vuex.Store({
     buyData: [],
     isLogin: '',
     isRegister: false,
-    route: ''
+    route: '',
+    saleid:"",
+    detail:{}
   },
   mutations: {
+    setSaleid(state, payload){
+      state.saleid=payload
+      // console.log(state.saleid)
+    },
+    setDetail(state,payload){
+      state.detail = payload
+    },
     register(state, payload){
       state.user.push(payload)
     },
@@ -103,6 +112,12 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setSaleid({commit},payload){
+      commit("setSaleid",payload)
+    },
+    setDetail({commit},payload){
+      commit("setDetail",payload)
+    },
     setBuyData({commit}, payload){
       commit('setBuyData', payload)
     },

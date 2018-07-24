@@ -3,7 +3,7 @@
         <ul class="goodsList">
             <img v-if="!list" src="../../../public/timgs.gif" alt="" class="loading">
             <!-- <mt-spinner v-if="!list" type="fading-circle" class="loading"></mt-spinner> -->
-            <li v-for="(item,index) of list" :key="index" :saleid="item.saleid">
+            <li v-for="(item,index) of list" :key="index" :saleid="item.saleid"  @click="showDetail(item.saleid,item)">
                 <img alt="" v-if="!item.click" :src="item.thumb">
                 <img alt="" v-else v-lazy="'http://www.youzixy.com/Uploads/'+item.thumb">
                 <p class="p1">
@@ -25,6 +25,7 @@
     import $ from 'axios'
     import Bus from '../../bus.js'
     import BScroll from 'better-scroll'
+    import {mapActions} from "vuex"
     export default {
         name: 'goods',
         data: () =>{
@@ -36,7 +37,7 @@
             $.post('/sale/mobileajax?page=3&order=10')
             .then((result) => {
                 this.list = result.data.res
-
+                console.log(this.list)
                 Bus.$on('goodsData',(goodsData) =>{
                     this.list.unshift(goodsData)
                     console.log(this.list)
@@ -46,9 +47,24 @@
                 this.scroll = new BScroll(this.$refs.wrapper, {click: true})
             })
         },
+        methods:{
+            ...mapActions(['setSaleid']),
+            ...mapActions(['setDetail']),            
+             showDetail(id,details){
+                 console.log(id)
+                this.setSaleid(id)
+                this.setDetail(details)
+                // setTimeout(()=>{
+                //     this.$router.push('detail')
+                // },1000)
+                
+                this.$router.push('detail')
+             }  
+        },
         activated() {
             this.scroll = new BScroll(this.$refs.wrapper, {click: true})
-        }
+        },
+       
     }
 </script>
 
